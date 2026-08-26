@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Mega Draft Helper</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Clash Royale · Mega Draft</p>
+        <h1>Mega Draft Helper</h1>
+        <p class="lede">Draft for a coherent pressure plan, deny your opponent clean counters, and preserve enough answers to avoid getting boxed in.</p>
+      </div>
+      <div class="patch-card">
+        <span class="status-dot"></span>
+        <div>
+          <strong>Aug 26, 2026 patch-aware</strong>
+          <small>3-day Mega Draft baseline + temporary patch priors</small>
+        </div>
+      </div>
+    </header>
+
+    <section class="setup panel" id="setupPanel">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">1 · Configure draft</p>
+          <h2>Enter the 36-card pool</h2>
+        </div>
+        <label class="toggle-line">
+          <input id="pickFirst" type="checkbox" checked />
+          <span>I pick first</span>
+        </label>
+      </div>
+      <p class="muted">Paste card names separated by commas or new lines. Unknown cards still work, but receive neutral metadata until tagged in the catalog.</p>
+      <textarea id="poolInput" rows="8" placeholder="Cannon Cart&#10;Rascals&#10;Poison&#10;..."></textarea>
+      <div class="actions">
+        <button class="secondary" id="loadSample">Load realistic sample pool</button>
+        <button class="primary" id="startDraft">Start draft</button>
+      </div>
+      <div id="setupMessage" class="message" aria-live="polite"></div>
+    </section>
+
+    <section id="draftApp" class="draft-app hidden">
+      <div class="turn-banner panel">
+        <div>
+          <p class="eyebrow">Current turn</p>
+          <h2 id="turnTitle">Your pick</h2>
+          <p id="turnSubtitle" class="muted"></p>
+        </div>
+        <div class="turn-controls">
+          <span id="turnCounter" class="turn-counter">Pick 1 / 16</span>
+          <button id="undoPick" class="secondary small">Undo</button>
+          <button id="resetDraft" class="ghost small">Reset</button>
+        </div>
+      </div>
+
+      <div class="recommendations panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="eyebrow" id="recommendationEyebrow">Decision support</p>
+            <h2 id="recommendationTitle">Best available picks</h2>
+          </div>
+          <div class="weights-summary" title="Score weights adapt with draft stage">Adaptive scoring</div>
+        </div>
+        <div id="recommendationList" class="recommendation-list"></div>
+      </div>
+
+      <div class="board-grid">
+        <section class="panel deck-panel you-panel">
+          <div class="panel-heading compact">
+            <div>
+              <p class="eyebrow">Your deck</p>
+              <h2><span id="youCount">0</span> / 8 cards</h2>
+            </div>
+            <span id="youAvg" class="metric-pill">0.0 elixir</span>
+          </div>
+          <div id="youDeck" class="deck-list empty-state">No cards drafted yet.</div>
+          <div id="youStrategy" class="strategy-box"></div>
+        </section>
+
+        <section class="panel deck-panel opp-panel">
+          <div class="panel-heading compact">
+            <div>
+              <p class="eyebrow">Opponent deck</p>
+              <h2><span id="oppCount">0</span> / 8 cards</h2>
+            </div>
+            <span id="oppAvg" class="metric-pill">0.0 elixir</span>
+          </div>
+          <div id="oppDeck" class="deck-list empty-state">No cards drafted yet.</div>
+          <div id="oppStrategy" class="strategy-box"></div>
+        </section>
+      </div>
+
+      <section class="panel pool-panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="eyebrow">Remaining pool</p>
+            <h2><span id="remainingCount">36</span> cards</h2>
+          </div>
+          <input id="cardSearch" class="search" type="search" placeholder="Filter cards…" />
+        </div>
+        <p class="muted pool-help">Click the card that the current drafter actually selects. The model re-ranks the rest immediately.</p>
+        <div id="poolGrid" class="pool-grid"></div>
+      </section>
+
+      <section class="panel model-panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="eyebrow">Why the model behaves this way</p>
+            <h2>Draft objectives</h2>
+          </div>
+        </div>
+        <div class="objective-grid">
+          <article><strong>Pressure cohesion</strong><span>Build toward one or two compatible ways to force responses instead of eight individually good cards.</span></article>
+          <article><strong>Counter coverage</strong><span>Reward answers to threats the opponent has already revealed.</span></article>
+          <article><strong>Counter denial</strong><span>Value cards that both fit your deck and remove a clean answer to your win condition from the shared pool.</span></article>
+          <article><strong>Scarcity</strong><span>Increase urgency when only a few viable anti-air, anti-tank, spell, or win-condition options remain.</span></article>
+          <article><strong>Optionality</strong><span>Favor flexible early picks; delay narrow win conditions until the opponent exposes weaknesses.</span></article>
+          <article><strong>Patch adjustment</strong><span>Use temporary Aug 26 priors until enough post-patch Mega Draft games overwrite stale 3-day data.</span></article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
