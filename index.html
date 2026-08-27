@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./styles.css" />
   <link rel="stylesheet" href="./model-v3.css" />
   <link rel="stylesheet" href="./model-v4.css" />
+  <link rel="stylesheet" href="./model-v8.css" />
 </head>
 <body>
   <main class="app-shell">
@@ -32,10 +33,18 @@
           <p class="eyebrow">1 · Configure draft</p>
           <h2>Enter the 36-card pool</h2>
         </div>
-        <label class="toggle-line">
-          <input id="pickFirst" type="checkbox" checked />
-          <span>I pick first</span>
-        </label>
+        <div class="player-position-control" aria-label="Your draft position">
+          <span class="player-position-label">You are:</span>
+          <label class="player-position-option">
+            <input type="radio" name="playerPosition" value="1" checked />
+            <span>Player 1 · picks first</span>
+          </label>
+          <label class="player-position-option">
+            <input type="radio" name="playerPosition" value="2" />
+            <span>Player 2 · picks second</span>
+          </label>
+          <input id="pickFirst" class="hidden" type="checkbox" checked aria-hidden="true" tabindex="-1" />
+        </div>
       </div>
       <p class="muted">Paste card names separated by commas or new lines. Unknown cards still work, but receive neutral metadata until tagged in the catalog.</p>
       <textarea id="poolInput" rows="8" placeholder="Cannon Cart&#10;Rascals&#10;Poison&#10;..."></textarea>
@@ -55,6 +64,7 @@
           <p id="turnSubtitle" class="muted"></p>
         </div>
         <div class="turn-controls">
+          <span id="playerIdentity" class="turn-counter">You: Player 1</span>
           <span id="turnCounter" class="turn-counter">Pick 1 / 16</span>
           <button id="undoPick" class="secondary small">Undo</button>
           <button id="resetDraft" class="ghost small">Reset</button>
@@ -120,6 +130,8 @@
         <div class="objective-grid">
           <article><strong>Mega Draft archetypes</strong><span>Infer a probability mix across beatdown, control, cycle pressure, bridge pressure, bait, siege, graveyard control, split-lane pressure, air beatdown, and counterpush instead of importing ladder deck labels. Specialized archetypes require their defining card or pressure package.</span></article>
           <article><strong>Deck structure</strong><span>Score the elixir curve, cheap-cycle count, minimum four-card cycle cost, threat-conditioned swarm clear, heavy-card saturation, and repeated-role redundancy relative to the inferred strategy.</span></article>
+          <article><strong>Multifunction cycle</strong><span>Give a small extra preference to cheap cards that lower rotation while also adding useful coverage, such as Fire Spirit providing cheap AoE rather than cycle value alone.</span></article>
+          <article><strong>Win-condition timing</strong><span>Prefer later win-condition reveals gradually as the opponent locks in more cards and has fewer remaining picks to counter-draft. Weak revealed answers increase that late timing advantage.</span></article>
           <article><strong>Champion / Hero slot</strong><span>Track the max-one Champion slot separately. An open slot gives a Champion only a small +0.8 tiebreaker; finishing without one is not penalized.</span></article>
           <article><strong>Counter coverage</strong><span>Reward answers to threats the opponent has already revealed. Spell counters distinguish fragile swarms, medium swarms, spawners, and merely multi-unit troops instead of treating all “swarm” tags alike.</span></article>
           <article><strong>Counter denial</strong><span>Once a win condition is committed, sharply increase the value of removing its strongest remaining answers from the shared pool.</span></article>
@@ -137,5 +149,6 @@
   <script src="./model-v5.js"></script>
   <script src="./model-v6.js"></script>
   <script src="./model-v7.js"></script>
+  <script src="./model-v8.js"></script>
 </body>
 </html>
