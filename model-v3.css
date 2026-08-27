@@ -1,0 +1,50 @@
+.hero-slot {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(15,23,42,.62);
+}
+.hero-slot > span {
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.hero-slot > strong {
+  color: #e6edf8;
+  font-size: .82rem;
+}
+.hero-slot > small {
+  color: var(--muted);
+  font-size: .68rem;
+  text-align: right;
+}
+.hero-slot.filled {
+  border-color: rgba(134,239,172,.28);
+  background: rgba(22,101,52,.08);
+}
+.hero-slot.open {
+  border-color: rgba(253,230,138,.20);
+}
+.pool-card:disabled {
+  cursor: default;
+  transform: none;
+}
+.pool-card.slot-unavailable {
+  opacity: .48;
+}
+@media (max-width: 700px) {
+  .hero-slot {
+    grid-template-columns: 1fr auto;
+  }
+  .hero-slot > small {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+}
