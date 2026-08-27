@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#0b1020" />
   <title>Mega Draft Helper</title>
   <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./model-v3.css" />
 </head>
 <body>
   <main class="app-shell">
@@ -117,6 +118,7 @@
         <div class="objective-grid">
           <article><strong>Mega Draft archetypes</strong><span>Infer a probability mix across beatdown, control, cycle pressure, bridge pressure, bait, siege, graveyard control, split-lane pressure, air beatdown, and counterpush instead of importing ladder deck labels.</span></article>
           <article><strong>Deck structure</strong><span>Score the elixir curve, cheap-cycle count, small-spell package, heavy-card saturation, and repeated-role redundancy relative to the inferred strategy.</span></article>
+          <article><strong>Champion / Hero slot</strong><span>Track the max-one Champion slot separately. An open slot gives a Champion only a small +0.8 tiebreaker; finishing without one is not penalized.</span></article>
           <article><strong>Counter coverage</strong><span>Reward answers to threats the opponent has already revealed, with card-specific matchup overrides taking priority over broad role tags.</span></article>
           <article><strong>Counter denial</strong><span>Once a win condition is committed, sharply increase the value of removing its strongest remaining answers from the shared pool.</span></article>
           <article><strong>Scarcity & optionality</strong><span>Increase urgency when important roles are disappearing while still favoring flexible early picks before the draft has revealed enough information.</span></article>
@@ -128,5 +130,6 @@
 
   <script src="./app.js"></script>
   <script src="./model-v2.js"></script>
+  <script src="./model-v3.js"></script>
 </body>
 </html>
