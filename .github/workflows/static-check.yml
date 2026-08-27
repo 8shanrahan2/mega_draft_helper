@@ -26,12 +26,16 @@ jobs:
           node --check model-v5.js
           node --check model-v6.js
           node --check model-v7.js
+          node --check model-v8.js
           node --check tests/model-v5.test.js
           node --check tests/model-v6.test.js
           node --check tests/model-v7.test.js
+          node --check tests/model-v8.test.js
       - name: Run model v5 regression checks
         run: node tests/model-v5.test.js
       - name: Run model v6 regression checks
         run: node tests/model-v6.test.js
       - name: Run model v7 regression checks
         run: node tests/model-v7.test.js
+      - name: Run model v8 regression checks
+        run: node tests/model-v8.test.js
