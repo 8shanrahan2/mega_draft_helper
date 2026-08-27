@@ -40,6 +40,7 @@
       <p class="muted">Paste card names separated by commas or new lines. Unknown cards still work, but receive neutral metadata until tagged in the catalog.</p>
       <textarea id="poolInput" rows="8" placeholder="Cannon Cart&#10;Rascals&#10;Poison&#10;..."></textarea>
       <div class="actions">
+        <button class="secondary" id="randomizePool">Randomize valid pool</button>
         <button class="secondary" id="loadSample">Load realistic sample pool</button>
         <button class="primary" id="startDraft">Start draft</button>
       </div>
@@ -117,7 +118,7 @@
           </div>
         </div>
         <div class="objective-grid">
-          <article><strong>Mega Draft archetypes</strong><span>Infer a probability mix across beatdown, control, cycle pressure, bridge pressure, bait, siege, graveyard control, split-lane pressure, air beatdown, and counterpush instead of importing ladder deck labels.</span></article>
+          <article><strong>Mega Draft archetypes</strong><span>Infer a probability mix across beatdown, control, cycle pressure, bridge pressure, bait, siege, graveyard control, split-lane pressure, air beatdown, and counterpush instead of importing ladder deck labels. Specialized archetypes require their defining card or pressure package.</span></article>
           <article><strong>Deck structure</strong><span>Score the elixir curve, cheap-cycle count, small-spell package, heavy-card saturation, and repeated-role redundancy relative to the inferred strategy.</span></article>
           <article><strong>Champion / Hero slot</strong><span>Track the max-one Champion slot separately. An open slot gives a Champion only a small +0.8 tiebreaker; finishing without one is not penalized.</span></article>
           <article><strong>Counter coverage</strong><span>Reward answers to threats the opponent has already revealed, with card-specific matchup overrides taking priority over broad role tags.</span></article>
@@ -133,5 +134,6 @@
   <script src="./model-v2.js"></script>
   <script src="./model-v3.js"></script>
   <script src="./model-v4.js"></script>
+  <script src="./model-v5.js"></script>
 </body>
 </html>
