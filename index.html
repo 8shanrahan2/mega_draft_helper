@@ -7,6 +7,7 @@
   <title>Mega Draft Helper</title>
   <link rel="stylesheet" href="./styles.css" />
   <link rel="stylesheet" href="./model-v3.css" />
+  <link rel="stylesheet" href="./model-v4.css" />
 </head>
 <body>
   <main class="app-shell">
@@ -104,7 +105,7 @@
           </div>
           <input id="cardSearch" class="search" type="search" placeholder="Filter cards…" />
         </div>
-        <p class="muted pool-help">Click the card that the current drafter actually selects. The model re-ranks the rest immediately.</p>
+        <p class="muted pool-help">Click either a recommendation or a remaining-pool card to record the current drafter’s selection. The model re-ranks immediately.</p>
         <div id="poolGrid" class="pool-grid"></div>
       </section>
 
@@ -131,5 +132,6 @@
   <script src="./app.js"></script>
   <script src="./model-v2.js"></script>
   <script src="./model-v3.js"></script>
+  <script src="./model-v4.js"></script>
 </body>
 </html>
