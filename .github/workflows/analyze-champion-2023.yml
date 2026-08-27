@@ -27,6 +27,10 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install kagglehub
 
+      - name: Pin last downloadable Kaggle version
+        run: |
+          sed -i 's#DATASET = "s1m0n38/clash-royale-games"#DATASET = "s1m0n38/clash-royale-games/versions/15"#' analysis/champion_effect_2023.py
+
       - name: Analyze April 2023 Mega Draft
         run: python analysis/champion_effect_2023.py
 
