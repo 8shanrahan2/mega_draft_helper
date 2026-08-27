@@ -1,0 +1,98 @@
+.score-heat {
+  background:
+    linear-gradient(135deg,
+      hsla(var(--heat-hue), 72%, 42%, var(--heat-alpha)),
+      rgba(7,12,24,.72) 62%);
+  border-color: hsla(var(--heat-hue), 72%, 62%, var(--heat-border));
+}
+
+.draft-recommendation {
+  width: 100%;
+  text-align: left;
+  color: inherit;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 62px minmax(0,1fr);
+  gap: 10px;
+  cursor: pointer;
+}
+.draft-recommendation:hover {
+  transform: translateY(-2px);
+  border-color: hsla(var(--heat-hue), 78%, 68%, .72);
+  box-shadow: 0 10px 28px rgba(0,0,0,.24);
+}
+.draft-recommendation:focus-visible,
+.pool-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.recommendation-art-wrap {
+  width: 62px;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: start;
+}
+.recommendation-icon {
+  width: 60px;
+  max-height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 5px 8px rgba(0,0,0,.25));
+}
+.recommendation-copy { min-width: 0; }
+
+.pool-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px minmax(0,1fr);
+  gap: 8px;
+  align-items: center;
+  overflow: hidden;
+}
+.pool-card:hover:not(:disabled) {
+  border-color: hsla(var(--heat-hue), 78%, 68%, .68);
+  background:
+    linear-gradient(135deg,
+      hsla(var(--heat-hue), 75%, 46%, calc(var(--heat-alpha) + .06)),
+      #15243e 70%);
+}
+.pool-card-icon {
+  width: 42px;
+  max-height: 54px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,.22));
+}
+.pool-card-copy { min-width: 0; }
+.pool-card-copy strong,
+.pool-card-copy small { display: block; }
+
+.deck-card.with-icon {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 5px 9px 5px 5px;
+}
+.deck-card-icon {
+  width: 28px;
+  height: 34px;
+  object-fit: contain;
+}
+.hero-slot-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.hero-slot-icon {
+  width: 25px;
+  height: 30px;
+  object-fit: contain;
+}
+
+@media (max-width: 700px) {
+  .draft-recommendation { grid-template-columns: 50px minmax(0,1fr); }
+  .recommendation-art-wrap { width: 50px; height: 62px; }
+  .recommendation-icon { width: 48px; max-height: 60px; }
+  .pool-card { grid-template-columns: 36px minmax(0,1fr); }
+  .pool-card-icon { width: 34px; max-height: 44px; }
+}
