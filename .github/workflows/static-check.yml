@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - main
-      - feature/champion-hero-slot
-      - feature/clickable-icons-heatmap
+      - 'feature/**'
   pull_request:
     branches:
       - main
@@ -24,3 +23,4 @@ jobs:
           node --check model-v2.js
           node --check model-v3.js
           node --check model-v4.js
+          node --check model-v5.js
