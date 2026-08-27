@@ -16,6 +16,7 @@ The goal is not to produce a static tier list. Mega Draft is a sequential shared
 - The app re-ranks all remaining cards after every pick.
 - On your turns it recommends your strongest picks; on opponent turns it shows a danger board of what is most valuable from their perspective.
 - Every recommendation exposes its component scores rather than returning an opaque ranking.
+- Once both decks reach 8/8, recommendations stop and the app switches to a final matchup report.
 
 ## Scoring model
 
@@ -23,15 +24,22 @@ A candidate card receives an adaptive score from these components:
 
 - **Mega Draft baseline:** current clean win rate (CWR), falling back to neutral 50 when the local snapshot lacks a card.
 - **Patch prior:** small temporary adjustments for balance changes that are newer than the 3-day stat window.
-- **Pressure-plan fit:** synergy with the strategy already emerging in the deck (control, bridge pressure, beatdown, bait, siege, air pressure, Graveyard support, cycle).
+- **Mega-Draft-native archetype fit:** probabilistic fit across Beatdown, Air Beatdown, Control, Cycle Pressure, Bridge Pressure, Bait, Siege, Graveyard Control, Split-Lane Pressure, and Counterpush. These are built from strategic primitives instead of exact ladder lists that depend on evolutions or hero cycling.
+- **Deck structure:** soft archetype-aware targets for average elixir, cheap-cycle count, heavy-card saturation, small-spell coverage, and repeated-role redundancy.
 - **Counter coverage:** how well the candidate answers threats the opponent has already drafted.
-- **Counter denial:** value from removing a card that would otherwise answer your already-drafted threats.
+- **Counter denial:** once a win condition is committed, the model sharply increases the value of removing its strongest remaining answers from the shared pool.
 - **Existing counter risk:** penalty when the opponent has already drafted clean answers to the candidate.
 - **Scarcity:** urgency when the deck is missing a role and only a few suitable cards remain.
 - **Flexibility:** early picks favor low-commitment multi-role cards.
 - **Win-condition timing:** early narrow win conditions are penalized while many counters remain; late or under-countered win conditions receive a bonus.
 
-This implements a principle repeated in the supplied Mega Draft guides: draft universally useful cards early, preserve optionality, and commit to a win condition once the opponent has exposed a weakness instead of giving them the whole draft to counter it.
+The structure layer intentionally does **not** use a universal rule like “lower average elixir is always better.” A beatdown shell can tolerate a much heavier curve than cycle pressure or bait. The inferred archetype distribution determines the soft curve and cheap-card targets.
+
+## Matchup model
+
+Generic role tags still provide fallback matchup information, but card-specific relationships can override them. This prevents errors such as classifying Inferno Dragon as an Electro Giant counter merely because Inferno Dragon has an `antiTank` tag.
+
+`model-v2.js` currently includes a small explicit override table and is designed so a future RoyaleAPI-derived empirical card-vs-card matrix can replace or expand that table.
 
 ## Current data assumptions
 
@@ -59,7 +67,8 @@ The repository is a static site and can be imported directly into Vercel. No fra
 ## Next steps
 
 - Automate RoyaleAPI snapshot refresh instead of maintaining the CWR map manually.
-- Replace role heuristics with a versioned card knowledge graph containing explicit card-to-card matchup edges.
-- Record draft decisions/outcomes to fit weights against actual Mega Draft wins rather than hand-tuning them.
+- Replace the small explicit matchup override map with a versioned empirical card-to-card matchup matrix.
+- Record draft decisions/outcomes to fit structure and archetype weights against actual Mega Draft wins rather than hand-tuning them.
 - Add card art and faster pool entry (screen capture / OCR or a structured 36-card selector).
 - Add expected opponent response: shallow minimax over the next two draft picks rather than scoring only the current state.
+- Explore clustering successful Mega Draft decks to learn native archetypes directly from results instead of maintaining hand-authored templates.
