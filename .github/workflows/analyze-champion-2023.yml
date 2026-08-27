@@ -27,11 +27,20 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install kagglehub
 
-      - name: Pin last downloadable Kaggle version
+      - name: Probe Kaggle direct file endpoints
         run: |
-          sed -i 's#DATASET = "s1m0n38/clash-royale-games"#DATASET = "s1m0n38/clash-royale-games/versions/15"#' analysis/champion_effect_2023.py
+          set +e
+          for url in \
+            'https://www.kaggle.com/api/v1/datasets/download/s1m0n38/clash-royale-games/20230403.csv' \
+            'https://www.kaggle.com/api/v1/datasets/download/s1m0n38/clash-royale-games/20230403.csv?datasetVersionNumber=16' \
+            'https://www.kaggle.com/api/v1/datasets/download/s1m0n38/clash-royale-games/20230403-20230501%2F20230403.csv' \
+            'https://www.kaggle.com/api/v1/datasets/download/s1m0n38/clash-royale-games/20230403-20230501%2F20230403.csv?datasetVersionNumber=16'; do
+            echo "=== $url ==="
+            curl -sS -L -o /dev/null -w 'HTTP %{http_code} final=%{url_effective} bytes=%{size_download}\n' "$url"
+          done
 
-      - name: Analyze April 2023 Mega Draft
+      - name: Analyze April 2023 Mega Draft with KaggleHub
+        continue-on-error: true
         run: python analysis/champion_effect_2023.py
 
       - name: Show report
